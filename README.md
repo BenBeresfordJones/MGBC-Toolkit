@@ -90,7 +90,7 @@ Arguments:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KEGG (ENZYME or PATHWAY)  e.g. 2.7.2.7, ko00650  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GO	 e.g. GO:0047761  
 `-p` Prefix for output files [default: "\<feature>.\<database>"]  
-`-o` Directory to write to [default: "."]  
+`-o` Directory to write to [default: "."]   
 
 __Note:__
 Multiple feature ids from the same scheme can be provided with `<-i>` as a comma-separated list (e.g. IPR011245,IPR014079). This will only return data for genomes that encode all features supplied.  
@@ -101,7 +101,9 @@ Finds the taxonomic locations (genomes and species) of supplied sequence-level f
 
 __Requirements:__
 * `R` (tested v3.6.0); requires Rscript to be executable via `$PATH`
-* `blast` (tested v2.7.1)
+* `blast` (tested v2.7.1)  
+
+
 __Note:__ This module requires the FULL install option `<-f>` to be included when installing the Toolkit.
 
   
