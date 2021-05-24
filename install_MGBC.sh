@@ -321,6 +321,7 @@ then
 fi
 
 chmod a+x $BINPATH/*.sh
+chmod a+x ./MGBC_Tk
 sed -i "s+___VARPATH___+$SRCPATH/var.src+g" ./MGBC_Tk
 sed -i "s+___VARPATH___+$SRCPATH/var.src+g" $BINPATH/MGBC_closest_taxa.sh
 sed -i "s+___VARPATH___+$SRCPATH/var.src+g" $BINPATH/MGBC_feature.sh
