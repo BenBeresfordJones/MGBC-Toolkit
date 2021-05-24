@@ -20,21 +20,21 @@ To install the Toolkit, first clone this GitHub repository.
 git clone https://github.com/BenBeresfordJones/MGBC-Toolkit
 ``` 
 
-In the cloned repository, run the install script to install the required datasets and compile the Toolkit. Multiple options are provided for installing the Toolkit, and balance different levels of functionality with memory requirements. The default settings install the intermediate-size Toolkit (~20 Gb) that supports both the 'closest_taxa' and the 'feature_search' modules.
+In the cloned repository, run the install script to install the required datasets and compile the Toolkit. Multiple options are provided for installing the Toolkit, and balance different levels of functionality with memory requirements. The default settings install the intermediate-size Toolkit (~20 Gb) that supports both the `closest_taxa` and the `feature_search` modules.
 
 ```
 sh install_MGBC.sh <options>
 ``` 
 Options:  
-`-l` installs a reduced Toolkit (<100 Mb). Only supports the closest_taxa module.  
-`-f` installs the FULL Toolkit (~60 Gb). Supports the 'hm_blast' module.  
+`-l` installs a reduced Toolkit (<100 Mb). Only supports the `closest_taxa` module.  
+`-f` installs the FULL Toolkit (~60 Gb). Supports the `hm_blast` module.  
 `-F` forces install. Overwrites prior installations.  
 
 __Note:__ The full install will take some time (~20 minutes) to download and upack datasests.  
 
 Finally, add the `MGBC_Tk` repository to your `$PATH` variable in `~/.profile`.
 ```
-export PATH=/path/to/MGBC-Toolkit:$PATH
+export PATH="/path/to/MGBC-Toolkit":$PATH
 ``` 
 
 ## Running the Toolkit ##
@@ -62,7 +62,7 @@ MGBC_Tk closest_taxa -i <SPECIES/GENOME_ID> -o <OUTFILE>
 ``` 
 Arguments:  
 `-i` Species taxon ([GTDB r95 taxonomy](https://gtdb.ecogenomic.org)) or genome id to query between hosts. [REQUIRED]  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E.g. "Bacteroides finegoldii", GUT_GENOME000122, or MGBC000577  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E.g. "Bacteroides finegoldii", GUT_GENOME000122, or MGBC000577  
 `-o` Specify output file to write to. [REQUIRED]    
 
 
@@ -177,8 +177,8 @@ MGBC_Tk hm_blast -i <PATH/TO/SEQ> -t <SEQTYPE> -s <SEQID> -o <OUTDIR> -p <PREFIX
 ``` 
 Arguments:  
 `-i` Path to sequence input file [REQUIRED]  
-`-t` Sequence type, either NUCL for nucleotide or PROT for protein [REQUIRED]
-`-s` Sequence identity to use as threshold for filtering results [default: 50]
+`-t` Sequence type, either NUCL for nucleotide or PROT for protein [REQUIRED]  
+`-s` Sequence identity to use as threshold for filtering results [default: 50]  
 `-o` Directory to write to [default: "."]  
 `-p` Prefix for output files [default: "<feature>.<database>"]  
 
