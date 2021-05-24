@@ -1,0 +1,92 @@
+#!/bin/bash
+
+############################################################################
+############################################################################
+##  MGBC-Toolkit: Wrapper functions for the Mouse Gut Bacterial Catalogue!
+##  Version 1.0
+##  Author: Benjamin Beresford-Jones
+############################################################################
+############################################################################
+
+usage()
+{
+cat << EOF
+
+MGBC-Toolkit: Taxonomic and functional comparisons between the human and mouse gut microbiotas.
+
+  Modules:
+    closest_taxa   -> Find closest taxonomically and functionally related species between hosts
+    feature_search -> Find taxonomic locations of functional annotations between hosts
+    hm_blast 	   -> Identify taxonomic locations of protein coding sequences between hosts
+
+  Use: MGBC_Tk <module> for command-specific options
+
+EOF
+}
+
+timestamp() {
+date +"%H:%M:%S"
+}
+
+echo "$(date)"
+echo "$(timestamp) INFO : Running $0 $@"
+
+if [ ! -f ___VARPATH___ ]
+then
+	echo "$(timestamp) ERROR : Please run install_MGBC.sh to compile the toolkit. Exiting."
+	exit 1
+fi
+
+. ___VARPATH___
+
+
+if [ -z $1 ]
+then
+	echo "$(timestamp) ERROR : No module provided."
+	usage
+	exit 2
+fi
+
+cmd_opts=$(echo "$@" | cut -d " " -f2-)
+
+if [ $1 == "closest_taxa" ]
+then
+	if [ ! -f $CLTAX ]
+	then
+		echo "$(timestamp) ERROR : Please ensure the toolkit is properly installed. Exiting."
+		exit 1
+	fi
+
+	if $(echo ${cmd_opts} | grep -q "\-i")
+	then
+		GENSPEC=$(echo "i ${cmd_opts} -" | sed -n 's/.* -i \(.*\) -.*/\1/p' | sed 's/ -.*//g') # workaround for species taxa
+		$BINPATH/MGBC_closest_taxa.sh -i "$GENSPEC" $(echo ${cmd_opts} | sed 's/-i.*-o/-o/g' | sed 's/-i.*//g')
+	else
+		$BINPATH/MGBC_closest_taxa.sh ${cmd_opts}
+	fi
+
+elif [ $1 == "feature_search" ]
+then
+        if [ ! -f $TAXREP ]
+        then
+                echo "$(timestamp) ERROR : Please ensure the DEFAULT toolkit is properly installed. LITE version may only be installed at present. Exiting."
+		exit 1
+        fi
+
+        $BINPATH/MGBC_feature.sh ${cmd_opts}
+
+elif [ $1 == "hm_blast" ]
+then
+        if [ ! -f $CLUS_100 ]
+        then
+                echo "$(timestamp) ERROR : Please ensure the FULL toolkit is properly installed. LITE or DEFAULT version may only be installed at present. Exiting."
+		exit 1
+        fi
+
+        $BINPATH/MGBC_blast.sh ${cmd_opts}
+
+else
+	echo "$(timestamp) ERROR : Module not recognised."
+	usage
+	exit 2
+fi
