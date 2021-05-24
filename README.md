@@ -7,9 +7,9 @@ This repository contains the wrapper scripts for accessing the taxonomic locatio
 * [Installing the Toolkit](#Installing-the-Toolkit)
 * [Running the Toolkit](#Running-the-Toolkit)
 * [Module descriptions](#Module-descriptions)
-  * [closest_taxa](#closest_tax)
-  * [feature_search](#feature_search)
-  * [hm_blast](#hm_blast)
+  * [closest_taxa](#1-closest_taxa)
+  * [feature_search](#2-feature_search)
+  * [hm_blast](#3-hm_blast)
 
 
 ## Installing the Toolkit ##
