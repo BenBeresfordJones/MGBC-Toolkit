@@ -63,7 +63,7 @@ BINPATH=$(pwd)/bin
 SRCPATH=$(pwd)/src
 BLASTDBPATH=$(pwd)/blast_db
 
-if [ $(basename -a $(pwd)) != "MGBC_Tk" ]
+if [ $(basename -a $(pwd)) != "MGBC-Toolkit" ]
 then
 	echo "$(timestamp) ERROR : Please run install module from the MGBC_Tk directory."
 	exit 3
