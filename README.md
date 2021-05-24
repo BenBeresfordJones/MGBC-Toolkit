@@ -30,10 +30,12 @@ Options:
 `-f` installs the FULL Toolkit (~60 Gb). Supports the 'hm_blast' module.  
 `-F` forces install. Overwrites prior installations.  
 
+__Note:__ The full install will take some time (~20 minutes) to download and upack datasests.  
 
-
-Finally, add the `MGBC_Tk` repository to your `$PATH` variable. 
-
+Finally, add the `MGBC_Tk` repository to your `$PATH` variable in `~/.profile`.
+```
+export PATH=/path/to/MGBC-Toolkit:$PATH
+``` 
 
 ## Running the Toolkit ##
 
