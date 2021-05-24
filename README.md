@@ -50,7 +50,7 @@ Modules:
 
 ## Module descriptions ##
 
-### `closest_taxa` ###
+### 1) `closest_taxa` ###
 Identifies host-specific and shared taxa, and returns the closest taxonomically and functionally related bacterial species for a supplied taxon of interest. 
 
 
@@ -64,7 +64,7 @@ Arguments:
 `-o` Specify output file to write to. [REQUIRED]    
 
 
-### `feature_search` ###
+### 2) `feature_search` ###
 Finds the taxonomic locations (genomes and species) of supplied functional features. Can analyse multiple functional annotation schemes from eggNOG emapper-v2 and InterProScan v5.
 
 __Requirements:__
@@ -87,13 +87,13 @@ Arguments:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Reactome e.g. R-HSA-964975  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KEGG (ENZYME or PATHWAY)  e.g. 2.7.2.7, ko00650  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GO	 e.g. GO:0047761  
-`-p` Prefix for output files [default: "<feature>.<database>"]  
+`-p` Prefix for output files [default: "\<feature>.\<database>"]  
 `-o` Directory to write to [default: "."]  
 
 __Note:__
 Multiple feature ids from the same scheme can be provided with `<-i>` as a comma-separated list (e.g. IPR011245,IPR014079). This will only return data for genomes that encode all features supplied.  
 
-### `hm_blast` ###
+### 3) `hm_blast` ###
 
 Finds the taxonomic locations (genomes and species) of supplied sequence-level features, either genes or proteins. Can analyse multiple functional annotation schemes from eggNOG emapper-v2 and InterProScan v5.
 
