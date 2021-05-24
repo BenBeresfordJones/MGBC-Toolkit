@@ -1,0 +1,17 @@
+# pre-install source file
+BINPATH=__BINPATH__
+
+# closest_tax
+HGENREP=__DB1PATH__/uhgg_rep_index_100456.tsv
+MGENREP=__DB1PATH__/mgbc_rep_index_26640.tsv
+CLTAX=__DB1PATH__/closest_tax.tsv
+
+# feature_search
+IPR_DATA=__DB2PATH__/ips.out.tsv
+ENOG_DATA=__DB2PATH__/eggnog.out.tsv
+CLUS_90=__DB2PATH__/clus90_clusmem.tsv
+TAXREP=__DB2PATH__/tax_rep_index.tsv
+
+# hm_blast
+CLUS_100_REP=__BDBPATH__/mmseqs_cluster_rep.fa
+CLUS_100=__DB3PATH__/clus100_clusmem.tsv
