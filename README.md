@@ -20,21 +20,21 @@ To install the Toolkit, first clone this GitHub repository.
 git clone https://github.com/BenBeresfordJones/MGBC-Toolkit
 ``` 
 
-In the cloned repository, run the install script to install the required datasets and compile the Toolkit. Multiple options are provided for installing the Toolkit, and balance different levels of functionality with memory requirements. The default settings install the intermediate-size Toolkit (~20 Gb) that supports both the 'closest_taxa' and the 'feature_search' modules.
+In the cloned repository, run the install script to install the required datasets and compile the Toolkit. Multiple options are provided for installing the Toolkit, and balance different levels of functionality with memory requirements. The default settings install the intermediate-size Toolkit (~20 Gb) that supports both the `closest_taxa` and the `feature_search` modules.
 
 ```
 sh install_MGBC.sh <options>
 ``` 
 Options:  
-`-l` installs a reduced Toolkit (<100 Mb). Only supports the closest_taxa module.  
-`-f` installs the FULL Toolkit (~60 Gb). Supports the 'hm_blast' module.  
+`-l` installs a reduced Toolkit (<100 Mb). Only supports the `closest_taxa` module.  
+`-f` installs the FULL Toolkit (~60 Gb). Supports the `hm_blast` module.  
 `-F` forces install. Overwrites prior installations.  
 
 __Note:__ The full install will take some time (~20 minutes) to download and upack datasests.  
 
 Finally, add the `MGBC_Tk` repository to your `$PATH` variable in `~/.profile`.
 ```
-export PATH=/path/to/MGBC-Toolkit:$PATH
+export PATH="/path/to/MGBC-Toolkit":$PATH
 ``` 
 
 ## Running the Toolkit ##
@@ -62,7 +62,7 @@ MGBC_Tk closest_taxa -i <SPECIES/GENOME_ID> -o <OUTFILE>
 ``` 
 Arguments:  
 `-i` Species taxon ([GTDB r95 taxonomy](https://gtdb.ecogenomic.org)) or genome id to query between hosts. [REQUIRED]  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E.g. "Bacteroides finegoldii", GUT_GENOME000122, or MGBC000577  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E.g. "Bacteroides finegoldii", GUT_GENOME000122, or MGBC000577  
 `-o` Specify output file to write to. [REQUIRED]    
 
 
@@ -161,7 +161,7 @@ K00929	GUT_GENOME283914	0.959669079627715	928	967	s__Acetatifactor sp900066565	H
 
 ### 3) `hm_blast` ###
 
-Finds the taxonomic locations (genomes and species) of supplied sequence-level features, either genes or proteins. Can analyse multiple functional annotation schemes from eggNOG emapper-v2 and InterProScan v5.
+Finds the taxonomic locations (genomes and species) of supplied sequence-level features, either genes or proteins.
 
 __Requirements:__
 * `R` (tested v3.6.0); requires Rscript to be executable via `$PATH`
@@ -177,8 +177,8 @@ MGBC_Tk hm_blast -i <PATH/TO/SEQ> -t <SEQTYPE> -s <SEQID> -o <OUTDIR> -p <PREFIX
 ``` 
 Arguments:  
 `-i` Path to sequence input file [REQUIRED]  
-`-t` Sequence type, either NUCL for nucleotide or PROT for protein [REQUIRED]
-`-s` Sequence identity to use as threshold for filtering results [default: 50]
+`-t` Sequence type, either NUCL for nucleotide or PROT for protein [REQUIRED]  
+`-s` Sequence identity to use as threshold for filtering results [default: 50]  
 `-o` Directory to write to [default: "."]  
 `-p` Prefix for output files [default: "<feature>.<database>"]  
 
@@ -194,7 +194,7 @@ GUT_GENOME143505	0.953940634595701	1864	1954	98.406	100	95.862	507.6	GUT_GENOME0
 GUT_GENOME001321	0.0294117647058824	1	34	97.967	97.967	97.967	506	GUT_GENOME039282_00094	s__Longicatena caecimuris	HUMAN	d__Bacteria;p__Firmicutes;c__Bacilli;o__Erysipelotrichales;f__Erysipelotrichaceae;g__Longicatena;s__Longicatena caecimuris
 ...
 ```
-   * `Species_rep` is the representative genome for the pangenome species cluster
+   * `Species_rep` is the representative genome for the pangenome species cluster.
    * `Gene_frac` is the proportion of genomes that belong to this pangenome that are predicted to encode this gene product.
    * `Positive_genomes` is the absolute number of genomes of this pangenome that are predicted to encode this gene product.
    * `Total_genomes` is the total number of genomes constituting this species cluster.
@@ -204,8 +204,12 @@ GUT_GENOME001321	0.0294117647058824	1	34	97.967	97.967	97.967	506	GUT_GENOME0392
    * `Species` is the species level taxon and `Taxonomy` is the full taxonomy for the species cluster.
    * `Host` indicates which host this pangenome pertains to.
 
-2) `<OUTDIR>/<PREFIX>.species_genome_index.tsv`: this tab-separated file contains the taxonomic locations of the supplied feature(s) at the genome-level.
-   * `Feature` is the functional annotation provided with `-i`.
-   * `Positive_genome_ids` is a colon-separated list of genomes for each taxon in output file 1 that are annotated with this feature.
+2) `<OUTDIR>/<PREFIX>.gene_data.tsv`: this tab-separated file contains the genome- and gene-level data for each taxon-resolved gene cluster from output file 1.
+   * `Species_rep` is the representative genome for the pangenome species cluster.
+   * `Positive_genome_ids` is a colon-separated list of genomes for each taxon in output file 1 that are annotated with this gene cluster.
+   * `All_genes` is a colon-separated list of the genes for each taxon in output file 1 that are annotated with this gene cluster.
 
+3) `<OUTDIR>/<PREFIX>.blast.qc`: this file contains the raw blast output data for the input sequence.
+   * Columns are: `Reference_id`, `Query_id`, `Sequence_identity`, `Bit-score`, `P-value`
+ 
  
