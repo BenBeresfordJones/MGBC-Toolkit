@@ -21,7 +21,7 @@ For non-bioinformaticians aiming to install and run the Toolkit on a personal de
    * [gnu-tar](https://formulae.brew.sh/formula/gnu-tar#default)
 
 These are standard bioinformatics tools that can be installed using [Homebrew](https://brew.sh).
-To add these utilities to your `$PATH`, open a new file `nano ~/.bashrc` and add the following:
+After installing the above utilities, add them to your `$PATH` by opening a new file `nano ~/.bashrc` and adding the following:
 ```
 PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
