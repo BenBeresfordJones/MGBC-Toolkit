@@ -4,12 +4,29 @@ MGBC-Toolkit
 This repository contains the wrapper scripts for accessing the taxonomic locations of functions between the human and mouse gut microbiotas using the [Mouse Gastrointestinal Bacteria Catalogue (MGBC)](https://github.com/BenBeresfordJones/MGBC).
 
 ## Contents ##
+* [Prerequisites](#Prerequisites)
 * [Installing the Toolkit](#Installing-the-Toolkit)
 * [Running the Toolkit](#Running-the-Toolkit)
 * [Module descriptions](#Module-descriptions)
   * [closest_taxa](#1-closest_taxa)
   * [feature_search](#2-feature_search)
   * [hm_blast](#3-hm_blast)
+
+
+## Prerequisites ##
+For non-bioinformaticians aiming to install and run the Toolkit on a personal device, the following executables must be installed and added to the `$PATH` variable:
+* [wget](https://formulae.brew.sh/formula/wget#default) 
+* GNU Bash utilities:
+   * [gnu-sed](https://formulae.brew.sh/formula/gnu-sed#default)
+   * [gnu-tar](https://formulae.brew.sh/formula/gnu-tar#default)
+
+These are standard bioinformatics tools that can be installed using [Homebrew](https://brew.sh).
+To add these utilities to your `$PATH`, open a new file `nano ~/.bashrc` and add the following:
+```
+PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+```
+Exit the file (control X) and save changes (Y, Enter). After sourcing the file `. ~/.bashrc` you should be able to install and run the Toolkit.
 
 
 ## Installing the Toolkit ##
