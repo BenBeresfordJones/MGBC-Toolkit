@@ -11,7 +11,7 @@ Usage: MGBC_Tk closest_taxa <options>
 MGBC species comparison - Identify the most closely related gut bacterial species between humans and mice.
 
 Options:
-   -i	   Species taxon or genome id to query between hosts. [REQUIRED]
+   -i	   Species taxon (GTDB r95 taxonomy) or genome id to query between hosts. [REQUIRED]
 		E.g. "Bacteroides finegoldii", GUT_GENOME000122, or MGBC000577
    -o      Specify output file to write to. [REQUIRED]
 
@@ -72,14 +72,18 @@ fi
 # get species representative genome
 if $(echo $FEATURE | grep -q "^MGBC")
 then
-	REP=$(grep -Fw "$FEATURE" $MGENREP | cut -f2 | sort -u)
+        TAXA=
+        REP=$(grep -Fw "$FEATURE" $MGENREP | cut -f2 | sort -u)
 elif $(echo $FEATURE | grep -q "^GUT_GENOME")
 then
+        TAXA=
         REP=$(grep -Fw "$FEATURE" $HGENREP | cut -f2 | sort -u)
 else
-	FSPEC="s__${FEATURE}"
-	REP=$(grep -Fwh "$FSPEC" $MGENREP $HGENREP | cut -f2 | sort -u)
+        FSPEC="s__${FEATURE}"
+        TAXA=TRUE
+        REP=$(grep -Fwh "$FSPEC" $MGENREP $HGENREP | cut -f2 | sort -u)
 fi
+
 
 # check if a genome rep has been found
 if [ -z "$REP" ]
@@ -94,20 +98,31 @@ printf "Direction\tDatabase\tReference_genome\tQuery_genome\tDistance\tReference
 
 if [ $(echo $REP | wc -w) == 1 ]
 then
-	if $(echo $REP | grep -q "^MGBC")
-	then
+        if $(echo $REP | grep -q "^MGBC")
+        then
              HOST="MOUSE"
-	     echo "$(timestamp) INFO : This species is MOUSE-SPECIFIC."
+             if [ -z $TAXA ]
+             then
+                echo "$(timestamp) INFO : MOUSE-derived genome supplied. Identifying the closest related HUMAN species."
+             else
+                echo "$(timestamp) INFO : This species is MOUSE-SPECIFIC."
+             fi
 
-	     awk -v genrep="$REP" ' $2 == genrep ' $CLTAX | sed 's/^/M2H\t/g' >> $OUTFILE
+             awk -v genrep="$REP" ' $2 == genrep ' $CLTAX | sed 's/^/M2H\t/g' >> $OUTFILE
 
-	elif $(echo $REP | grep -q "^GUT_GENOME")
-	then
-	     HOST="HUMAN"
-	     echo "$(timestamp) INFO : This species is HUMAN-SPECIFIC."
+        elif $(echo $REP | grep -q "^GUT_GENOME")
+        then
+             HOST="HUMAN"
+             if [ -z $TAXA ]
+             then
+                echo "$(timestamp) INFO : HUMAN-derived genome supplied. Identifying the closest related MOUSE species."
+             else
+                echo "$(timestamp) INFO : This species is HUMAN-SPECIFIC."
+             fi
 
-	     awk -v genrep="$REP" ' $2 == genrep ' $CLTAX | sed 's/^/H2M\t/g' >> $OUTFILE
-	fi
+             awk -v genrep="$REP" ' $2 == genrep ' $CLTAX | sed 's/^/H2M\t/g' >> $OUTFILE
+        fi
+
 
 elif [ $(echo $REP | wc -w) == 2 ]
 then
