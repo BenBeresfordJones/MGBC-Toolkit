@@ -17,6 +17,7 @@ This repository contains the wrapper scripts for accessing the taxonomic locatio
 For non-bioinformaticians aiming to install and run the Toolkit on a personal device, the following executables must be installed and added to the `$PATH` variable:
 * [wget](https://formulae.brew.sh/formula/wget#default) 
 * GNU Bash utilities:
+   * [coreutils](https://formulae.brew.sh/formula/coreutils#default)
    * [gnu-sed](https://formulae.brew.sh/formula/gnu-sed#default)
    * [gnu-tar](https://formulae.brew.sh/formula/gnu-tar#default)
 
