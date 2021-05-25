@@ -26,7 +26,7 @@ To add these utilities to your `$PATH`, open a new file `nano ~/.bashrc` and add
 PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 ```
-After sourcing the file `. ~/.bashrc` you should be able to install and run the Toolkit.
+Exit the file (control X) and save changes (Y, Enter). After sourcing the file `. ~/.bashrc` you should be able to install and run the Toolkit.
 
 
 ## Installing the Toolkit ##
