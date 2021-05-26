@@ -53,20 +53,14 @@ date +"%H:%M:%S"
 }
 
 
-# check blastdb install
-
-
-
-#echo "$(date)"
-#echo "$(timestamp) INFO : Running $0 $@"
-
 ## check install
-#if [ ! -f ___VARPATHS___ ]
-#then
-#	echo "ERROR : Please run install module first. Exiting."
-#	echo "\"MGBC_tk install\""
-#	exit 2
-#fi
+if [ ! -f ___VARPATH___ ]
+then
+	echo "ERROR : Please run install module first. Exiting."
+	exit 1
+fi
+
+
 
 if [ -z $(which Rscript) ]
 then
@@ -81,9 +75,8 @@ then
 fi
 
 ## source variable paths
-#. ___VARPATHS___
+. ___VARPATH___
 
-. /lustre/scratch118/infgen/team162/bb11/bin/MGBC_Tk/src/var.src
 
 if [ -z $BLAST_IN ]
 then
