@@ -27,7 +27,7 @@ PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 ```
-Files can be edited using the `nano` utility, e.g. `nano /etc/paths`. Exit the file (ctrl X) and save changes (Y, Enter). After sourcing the file, e.g. `. /etc/paths` you should be able to install and run the Toolkit.
+Files can be edited using the `nano` utility, e.g. `nano /etc/paths`. Exit the file (ctrl X) and save changes (Y, Enter). After sourcing the file, e.g. `. /etc/paths`, you should be able to install and run the Toolkit.
 
 
 ## Installing the Toolkit ##
