@@ -21,14 +21,13 @@ For non-bioinformaticians aiming to install and run the Toolkit on a personal de
    * [gnu-sed](https://formulae.brew.sh/formula/gnu-sed#default)
    * [gnu-tar](https://formulae.brew.sh/formula/gnu-tar#default)
 
-These are standard bioinformatics tools that can be installed using [Homebrew](https://brew.sh).
-After installing the above utilities, add them to your `$PATH` by opening a new file `nano ~/.bashrc` and adding the following:
+These are standard bioinformatics tools that can be installed using [Homebrew](https://brew.sh). After installing the above utilities, add them to your `$PATH` variable by adding the following lines of code to one of `~/.profile`, `/etc/paths` or `~/.bashrc` (depending on your system):
 ```
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 ```
-Exit the file (control X) and save changes (Y, Enter). After sourcing the file `. ~/.bashrc` you should be able to install and run the Toolkit.
+Files can be edited using the `nano` utility, e.g. `nano /etc/paths`. Exit the file (ctrl X) and save changes (Y, Enter). After sourcing the file, e.g. `. /etc/paths` you should be able to install and run the Toolkit.
 
 
 ## Installing the Toolkit ##
@@ -203,6 +202,7 @@ Arguments:
 `-i` Path to sequence input file [REQUIRED]  
 `-t` Sequence type, either NUCL for nucleotide or PROT for protein [REQUIRED]  
 `-s` Sequence identity to use as threshold for filtering results [default: 50]  
+`-n` Number of threads [default: 1]
 `-o` Directory to write to [default: "."]  
 `-p` Prefix for output files [default: "<feature>.<database>"]  
 
