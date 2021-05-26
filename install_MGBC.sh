@@ -108,7 +108,7 @@ then
 	sed "s+__BINPATH__+$BINPATH+g" $SRCPATH/var.init > $SRCPATH/var.src
 
         echo "$(timestamp) INFO : Installing databases."
-        wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv --show-progress
+        wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv #--show-progress
 
         echo "$(timestamp) INFO : Extracting databases."
         tar --overwrite -xf $DATA/mgbc-df_b1.tar.gz -C ./data/
@@ -145,8 +145,8 @@ then
 	sed "s+__BINPATH__+$BINPATH+g" $SRCPATH/var.init > $SRCPATH/var.src
 
 	echo "$(timestamp) INFO : Installing databases."
-	wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv --show-progress
-	wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv --show-progress
+	wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv #--show-progress
+	wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv #--show-progress
 
 	echo "$(timestamp) INFO : Extracting databases. Please be patient."
 	tar --overwrite -xf $DATA/mgbc-df_b1.tar.gz -C ./data/
@@ -192,8 +192,8 @@ then
 
 		echo "$(timestamp) INFO : Running FULL install."
 
-                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv --show-progress
-                wget $BLAST_DB -nv --show-progress
+                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv #--show-progress
+                wget $BLAST_DB -nv #--show-progress
 
                 echo "$(timestamp) INFO : Extracting databases. Please be patient."
                 tar --overwrite -xf $(pwd)/blast_db.tar.gz
@@ -231,9 +231,9 @@ then
 		sed "s+__BINPATH__+$BINPATH+g" $SRCPATH/var.init > $SRCPATH/var.src
 
 	        echo "$(timestamp) INFO : Installing databases."
-	        wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv --show-progress
-	        wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv --show-progress
-                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv --show-progress
+	        wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv #--show-progress
+	        wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv #--show-progress
+                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv #--show-progress
                 wget $BLAST_DB -nv --show-progress
 
 	        echo "$(timestamp) INFO : Extracting databases. Please be patient."
@@ -277,9 +277,9 @@ then
                 sed "s+__BINPATH__+$BINPATH+g" $SRCPATH/var.init > $SRCPATH/var.src
 
                 echo "$(timestamp) INFO : Installing databases."
-                wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv --show-progress
-                wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv --show-progress
-                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv --show-progress
+                wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv #--show-progress
+                wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv #--show-progress
+                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv #--show-progress
                 wget $BLAST_DB -nv --show-progress
 
                 echo "$(timestamp) INFO : Extracting databases. Please be patient."
@@ -320,6 +320,7 @@ then
 
 fi
 
+chmod -R a+x $BINPATH
 chmod a+x $BINPATH/*.sh
 chmod a+x ./MGBC_Tk
 sed -i "s+___VARPATH___+$SRCPATH/var.src+g" ./MGBC_Tk

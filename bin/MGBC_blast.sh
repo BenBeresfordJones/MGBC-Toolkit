@@ -11,6 +11,7 @@ OPTIONS:
    -i      Path to sequence input file [REQUIRED]
    -t	   Sequence type, either NUCL for nucleotide or PROT for protein [REQUIRED]
    -s      Sequence identity to use as threshold for filtering results [default: 50]
+   -n	   Number of threads [default: 1]
    -o      Directory to write to [default: "."]
    -p      Prefix for output files [default: "<-i>"]
 
@@ -22,8 +23,9 @@ SEQ_ID=
 SEQ_TYPE=
 OUT=
 PREFIX=
+THREADS=
 
-while getopts “i:t:s:o:p:” OPTION
+while getopts “i:t:s:o:p:n:” OPTION
 do
      case ${OPTION} in
          i)
@@ -41,6 +43,9 @@ do
 	 p)
 	     PREFIX=${OPTARG}
 	     ;;
+	 n)
+	     THREADS=${OPTARG}
+	     ;;
          ?)
              usage
              exit
@@ -53,20 +58,14 @@ date +"%H:%M:%S"
 }
 
 
-# check blastdb install
-
-
-
-#echo "$(date)"
-#echo "$(timestamp) INFO : Running $0 $@"
-
 ## check install
-#if [ ! -f ___VARPATHS___ ]
-#then
-#	echo "ERROR : Please run install module first. Exiting."
-#	echo "\"MGBC_tk install\""
-#	exit 2
-#fi
+if [ ! -f ___VARPATH___ ]
+then
+	echo "ERROR : Please run install module first. Exiting."
+	exit 1
+fi
+
+
 
 if [ -z $(which Rscript) ]
 then
@@ -81,9 +80,8 @@ then
 fi
 
 ## source variable paths
-#. ___VARPATHS___
+. ___VARPATH___
 
-. /lustre/scratch118/infgen/team162/bb11/bin/MGBC_Tk/src/var.src
 
 if [ -z $BLAST_IN ]
 then
@@ -126,6 +124,18 @@ then
      SEQ_ID=50
 fi
 
+if [ -z $THREADS ]
+then
+     THREADS=1
+fi
+
+case $THREADS in
+    *[!0-9]*)
+    	echo "$(timestamp) ERROR : Please use the -n flag to specify the number of threads. Non-integer detected. Exiting."
+	exit 1
+    	;;
+    *) echo "$(timestamp) INFO : Using $THREADS threads for analysis." ;;
+esac
 
 if [ -z $OUT ]
 then
@@ -148,11 +158,11 @@ if [ ! -d $TMP ]; then mkdir $TMP; fi
 if [ $SEQ_TYPE == "PROT" ]
 then
 	echo "$(timestamp) INFO : Running blastp."
-	blastp -query $BLAST_IN -db $CLUS_100_REP -outfmt '6 qseqid sseqid pident bitscore evalue length qlen slen' -evalue 1e-5 -max_target_seqs 50000 -out $TMP/blast.out
+	blastp -query $BLAST_IN -db $CLUS_100_REP -num_threads $THREADS -outfmt '6 qseqid sseqid pident bitscore evalue length qlen slen' -evalue 1e-5 -max_target_seqs 50000 -out $TMP/blast.out
 elif [ $SEQ_TYPE == "NUCL" ]
 then
 	echo "$(timestamp) INFO : Running blastx."
-	blastx -query $BLAST_IN -db $CLUS_100_REP -outfmt '6 qseqid sseqid pident bitscore evalue length qlen slen' -evalue 1e-5 -max_target_seqs 50000 -out $TMP/blast.out
+	blastx -query $BLAST_IN -db $CLUS_100_REP -num_threads $THREADS -outfmt '6 qseqid sseqid pident bitscore evalue length qlen slen' -evalue 1e-5 -max_target_seqs 50000 -out $TMP/blast.out
 fi
 
 if [ ! -f $TMP/blast.out ]

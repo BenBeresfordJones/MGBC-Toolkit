@@ -64,16 +64,6 @@ timestamp() {
 date +"%H:%M:%S"
 }
 
-#echo "$(date)"
-#echo "$(timestamp) INFO : Running $0 $@"
-
-## check install
-#if [ ! -f ___VARPATHS___ ]
-#then
-#	echo "ERROR : Please run install module first. Exiting."
-#	echo "\"MGBC_tk install\""
-#	exit 2
-#fi
 
 if [ -z $(which Rscript) ]
 then
@@ -81,10 +71,15 @@ then
 	exit 1
 fi
 
-## source variable paths
-#. ___VARPATHS___
+## check install
+if [ ! -f ___VARPATH___ ]
+then
+	echo "ERROR : Please run install module first. Exiting."
+	exit 1
+fi
 
-. /lustre/scratch118/infgen/team162/bb11/bin/MGBC_Tk/src/var.src
+## source variable paths
+. ___VARPATH___
 
 
 ## check commandline inputs
@@ -130,7 +125,7 @@ if [ ! -d $OUTDIR ]; then mkdir -p $OUTDIR; fi
 if [ -z $PREFIX ]
 then
 	FEATURE_S=$(echo "$FEATURE" | sed -e 's/:/_/g' -e 's/,/_/g')
-     PREFIX=$FEATURE_S.$PREFDB
+	PREFIX=$FEATURE_S.$PREFDB
 fi
 
 OUTPREF=$(readlink -f $OUTDIR/$PREFIX)
