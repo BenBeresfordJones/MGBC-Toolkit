@@ -58,7 +58,7 @@ export PATH="/path/to/MGBC-Toolkit":$PATH
 
 The installation process changes access permissions for the Toolkit automatically. However, if any 'permission' errors are seen, please run the following from the MGBC-Toolkit directory.
 ```
-chmod -R +x ./bin
+chmod -R +x bin
 ```
 
 ## Running the Toolkit ##
