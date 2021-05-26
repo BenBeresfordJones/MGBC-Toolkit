@@ -176,7 +176,7 @@ then
 	
 	if [ ! -f $DATA/mgbc-df_b1.tar.gz ] || [ ! -f $DATA/mgbc-df_b2.tar.gz ]
 	then
-		echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, inclusing wget, have been installed. Exiting." 
+		echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, including wget, have been installed. Exiting." 
 		exit 1
 	fi
 
@@ -240,7 +240,7 @@ then
 	
 		if [ ! -f $DATA/mgbc-df_b3.tar.gz ] || [ ! -f $(pwd)/blast_db.tar.gz ]
 		then
-			echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, inclusing wget, have been installed. Exiting." 
+			echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, including wget, have been installed. Exiting." 
 			exit 1
 		fi
 
@@ -302,7 +302,7 @@ then
 	
 		if [ ! -f $DATA/mgbc-df_b1.tar.gz ] || [ ! -f $DATA/mgbc-df_b2.tar.gz ] || [ ! -f $DATA/mgbc-df_b3.tar.gz ] || [ ! -f $(pwd)/blast_db.tar.gz ]
 		then
-			echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, inclusing wget, have been installed. Exiting." 
+			echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, including wget, have been installed. Exiting." 
 			exit 1
 		fi
 		
@@ -371,7 +371,7 @@ then
 	
 		if [ ! -f $DATA/mgbc-df_b1.tar.gz ] || [ ! -f $DATA/mgbc-df_b2.tar.gz ] || [ ! -f $DATA/mgbc-df_b3.tar.gz ] || [ ! -f $(pwd)/blast_db.tar.gz ]
 		then
-			echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, inclusing wget, have been installed. Exiting." 
+			echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, including wget, have been installed. Exiting." 
 			exit 1
 		fi
 
