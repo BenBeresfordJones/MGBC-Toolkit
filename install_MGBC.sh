@@ -106,10 +106,25 @@ then
         echo "$(timestamp) INFO : Running LITE install."
 
 	sed "s+__BINPATH__+$BINPATH+g" $SRCPATH/var.init > $SRCPATH/var.src
+	
+	if [ -f $DATA/mgbc-df_b1.tar.gz ]; then rm $DATA/mgbc-df_b1.tar.gz; fi
 
         echo "$(timestamp) INFO : Installing databases."
-        wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv #--show-progress
+        wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv --show-progress
 
+	if [ ! -f $DATA/mgbc-df_b1.tar.gz ] # in case different version of wget is installed
+	then
+		echo "$(timestamp) WARNING : Failed to install dataset. Retrying."
+		echo "$(timestamp) INFO : Installing databases."
+		wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv
+	fi
+	
+	if [ ! -f $DATA/mgbc-df_b1.tar.gz ]
+	then
+		echo "$(timestamp) ERROR : Failed to install dataset. Please ensure all the prerequisites, including wget, have been installed. Exiting." 
+		exit 1
+	fi
+	
         echo "$(timestamp) INFO : Extracting databases."
         tar --overwrite -xf $DATA/mgbc-df_b1.tar.gz -C ./data/
 
@@ -122,7 +137,7 @@ then
         then
                 echo "$(timestamp) INFO : Data files installed correctly. Compiling toolkit."
         else
-                echo "$(timestamp) ERROR : Something went wrong with the install... Exiting."
+                echo "$(timestamp) ERROR : Something went wrong with extracting the databases... Please ensure gnu-tar has been installed. Exiting."
                 exit 1
         fi
 
@@ -144,9 +159,26 @@ then
 
 	sed "s+__BINPATH__+$BINPATH+g" $SRCPATH/var.init > $SRCPATH/var.src
 
+	if [ -f $DATA/mgbc-df_b1.tar.gz ]; then rm $DATA/mgbc-df_b1.tar.gz; fi
+	if [ -f $DATA/mgbc-df_b2.tar.gz ]; then rm $DATA/mgbc-df_b2.tar.gz; fi
+	
 	echo "$(timestamp) INFO : Installing databases."
-	wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv #--show-progress
-	wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv #--show-progress
+	wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv --show-progress
+	wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv --show-progress
+	
+	if [ ! -f $DATA/mgbc-df_b1.tar.gz ] || [ ! -f $DATA/mgbc-df_b2.tar.gz ] # in cases where a different version of wget is installed
+	then
+		echo "$(timestamp) WARNING : Failed to install dataset. Retrying."
+		echo "$(timestamp) INFO : Installing databases. Please be patient"
+		wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv
+		wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv
+	fi
+	
+	if [ ! -f $DATA/mgbc-df_b1.tar.gz ] || [ ! -f $DATA/mgbc-df_b2.tar.gz ]
+	then
+		echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, inclusing wget, have been installed. Exiting." 
+		exit 1
+	fi
 
 	echo "$(timestamp) INFO : Extracting databases. Please be patient."
 	tar --overwrite -xf $DATA/mgbc-df_b1.tar.gz -C ./data/
@@ -165,7 +197,7 @@ then
 	then
 		echo "$(timestamp) INFO : Data files installed correctly. Compiling toolkit."
 	else
-		echo "$(timestamp) ERROR : Something went wrong with the install... Exiting."
+		echo "$(timestamp) ERROR : Something went wrong with extracting the databases... Please ensure gnu-tar has been installed. Exiting."
 		exit 1
 	fi
 
@@ -189,11 +221,28 @@ then
 	if [ -f $SRCPATH/var.src ] && [ -f $DATA/tax_rep_index.tsv ] && [ -z $FORCE ]
         then
                 echo "$(timestamp) INFO : DEFAULT Toolkit is already compiled. Skipping re-install, and installing blast database."
+		
+		if [ -f $DATA/mgbc-df_b3.tar.gz ]; then rm $DATA/mgbc-df_b3.tar.gz; fi
+		if [ -f $(pwd)/blast_db.tar.gz ]; then rm $(pwd)/blast_db.tar.gz; fi
 
 		echo "$(timestamp) INFO : Running FULL install."
 
-                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv #--show-progress
-                wget $BLAST_DB -nv #--show-progress
+                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv --show-progress
+                wget $BLAST_DB -nv --show-progress
+		
+		if [ ! -f $DATA/mgbc-df_b3.tar.gz ] || [ ! -f $(pwd)/blast_db.tar.gz ]
+		then
+			echo "$(timestamp) WARNING : Failed to install datasets. Retrying."
+			echo "$(timestamp) INFO : Installing databases. Please be patient"
+			wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv
+			wget $BLAST_DB -nv
+		fi
+	
+		if [ ! -f $DATA/mgbc-df_b3.tar.gz ] || [ ! -f $(pwd)/blast_db.tar.gz ]
+		then
+			echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, inclusing wget, have been installed. Exiting." 
+			exit 1
+		fi
 
                 echo "$(timestamp) INFO : Extracting databases. Please be patient."
                 tar --overwrite -xf $(pwd)/blast_db.tar.gz
@@ -215,7 +264,7 @@ then
                 then
                         echo "$(timestamp) INFO : Data files installed correctly. Compiling toolkit."
                 else
-                        echo "$(timestamp) ERROR : Something went wrong with the install... Exiting."
+                        echo "$(timestamp) ERROR : Something went wrong with extracting the databases... Please ensure gnu-tar has been installed. Exiting."
                         exit 1
                 fi
 
@@ -229,22 +278,45 @@ then
 	        echo "$(timestamp) INFO : Running FULL install."
 
 		sed "s+__BINPATH__+$BINPATH+g" $SRCPATH/var.init > $SRCPATH/var.src
-
+		
+		if [ -f $DATA/mgbc-df_b1.tar.gz ]; then rm $DATA/mgbc-df_b1.tar.gz; fi
+		if [ -f $DATA/mgbc-df_b2.tar.gz ]; then rm $DATA/mgbc-df_b2.tar.gz; fi
+		if [ -f $DATA/mgbc-df_b3.tar.gz ]; then rm $DATA/mgbc-df_b4.tar.gz; fi
+		if [ -f $(pwd)/blast_db.tar.gz ]; then rm $(pwd)/blast_db.tar.gz; fi
+		
 	        echo "$(timestamp) INFO : Installing databases."
-	        wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv #--show-progress
-	        wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv #--show-progress
-                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv #--show-progress
+	        wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv --show-progress
+	        wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv --show-progress
+                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv --show-progress
                 wget $BLAST_DB -nv --show-progress
-
+		
+		if [ ! -f $DATA/mgbc-df_b1.tar.gz ] || [ ! -f $DATA/mgbc-df_b2.tar.gz ] || [ ! -f $DATA/mgbc-df_b3.tar.gz ] || [ ! -f $(pwd)/blast_db.tar.gz ] # in cases where a different version of wget is installed
+		then
+			echo "$(timestamp) WARNING : Failed to install datasets. Retrying."
+			echo "$(timestamp) INFO : Installing databases. Please be patient"
+			wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv
+			wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv
+			wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv
+			wget $BLAST_DB -nv
+		fi
+	
+		if [ ! -f $DATA/mgbc-df_b1.tar.gz ] || [ ! -f $DATA/mgbc-df_b2.tar.gz ] || [ ! -f $DATA/mgbc-df_b3.tar.gz ] || [ ! -f $(pwd)/blast_db.tar.gz ]
+		then
+			echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, inclusing wget, have been installed. Exiting." 
+			exit 1
+		fi
+		
 	        echo "$(timestamp) INFO : Extracting databases. Please be patient."
+		# batch 1
 	        tar --overwrite -xf $DATA/mgbc-df_b1.tar.gz -C ./data/
 	        tar --overwrite -xf $DATA/mgbc-df_b2.tar.gz -C ./data/
-
 	        rm $DATA/mgbc-df_b1.tar.gz $DATA/mgbc-df_b2.tar.gz
-
+		
+		# batch 2
                 tar --overwrite -xf $(pwd)/blast_db.tar.gz
 		rm $(pwd)/blast_db.tar.gz
-
+		
+		# batch 3
                 tar --overwrite -xf $DATA/mgbc-df_b3.tar.gz -C ./data/
 		rm $DATA/mgbc-df_b3.tar.gz
 
@@ -261,7 +333,7 @@ then
 	        then
 	                echo "$(timestamp) INFO : Data files installed correctly. Compiling toolkit."
 	        else
-	                echo "$(timestamp) ERROR : Something went wrong with the install... Exiting."
+	                echo "$(timestamp) ERROR : Something went wrong with extracting the databases... Please ensure gnu-tar has been installed. Exiting."
 	                exit 1
 	        fi
 
@@ -275,52 +347,75 @@ then
                 echo "$(timestamp) INFO : Running FULL install."
 
                 sed "s+__BINPATH__+$BINPATH+g" $SRCPATH/var.init > $SRCPATH/var.src
+		
+		if [ -f $DATA/mgbc-df_b1.tar.gz ]; then rm $DATA/mgbc-df_b1.tar.gz; fi
+		if [ -f $DATA/mgbc-df_b2.tar.gz ]; then rm $DATA/mgbc-df_b2.tar.gz; fi
+		if [ -f $DATA/mgbc-df_b3.tar.gz ]; then rm $DATA/mgbc-df_b4.tar.gz; fi
+		if [ -f $(pwd)/blast_db.tar.gz ]; then rm $(pwd)/blast_db.tar.gz; fi
 
                 echo "$(timestamp) INFO : Installing databases."
-                wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv #--show-progress
-                wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv #--show-progress
-                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv #--show-progress
+                wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv --show-progress
+                wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv --show-progress
+                wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv --show-progress
                 wget $BLAST_DB -nv --show-progress
+		
+		if [ ! -f $DATA/mgbc-df_b1.tar.gz ] || [ ! -f $DATA/mgbc-df_b2.tar.gz ] || [ ! -f $DATA/mgbc-df_b3.tar.gz ] || [ ! -f $(pwd)/blast_db.tar.gz ] # in cases where a different version of wget is installed
+		then
+			echo "$(timestamp) WARNING : Failed to install datasets. Retrying."
+			echo "$(timestamp) INFO : Installing databases. Please be patient"
+			wget -O $DATA/mgbc-df_b1.tar.gz $MGBC_DB_1 -nv
+			wget -O $DATA/mgbc-df_b2.tar.gz $MGBC_DB_2 -nv
+			wget -O $DATA/mgbc-df_b3.tar.gz $MGBC_DB_3 -nv
+			wget $BLAST_DB -nv
+		fi
+	
+		if [ ! -f $DATA/mgbc-df_b1.tar.gz ] || [ ! -f $DATA/mgbc-df_b2.tar.gz ] || [ ! -f $DATA/mgbc-df_b3.tar.gz ] || [ ! -f $(pwd)/blast_db.tar.gz ]
+		then
+			echo "$(timestamp) ERROR : Failed to correctly install datasets. Please ensure all the prerequisites, inclusing wget, have been installed. Exiting." 
+			exit 1
+		fi
 
                 echo "$(timestamp) INFO : Extracting databases. Please be patient."
-                tar --overwrite -xf $DATA/mgbc-df_b1.tar.gz -C ./data/
-                tar --overwrite -xf $DATA/mgbc-df_b2.tar.gz -C ./data/
-
-                rm $DATA/mgbc-df_b1.tar.gz $DATA/mgbc-df_b2.tar.gz
-
+		# batch 1
+	        tar --overwrite -xf $DATA/mgbc-df_b1.tar.gz -C ./data/
+	        tar --overwrite -xf $DATA/mgbc-df_b2.tar.gz -C ./data/
+	        rm $DATA/mgbc-df_b1.tar.gz $DATA/mgbc-df_b2.tar.gz
+		
+		# batch 2
                 tar --overwrite -xf $(pwd)/blast_db.tar.gz
-                rm $(pwd)/blast_db.tar.gz
-
+		rm $(pwd)/blast_db.tar.gz
+		
+		# batch 3
                 tar --overwrite -xf $DATA/mgbc-df_b3.tar.gz -C ./data/
-                rm $DATA/mgbc-df_b3.tar.gz
+		rm $DATA/mgbc-df_b3.tar.gz
 
-                # check install
-                if [ -f $DATA/closest_tax.tsv ] && \
-                        [ -f $DATA/mgbc_rep_index_26640.tsv ] && \
-                        [ -f $DATA/uhgg_rep_index_100456.tsv ] && \
-                        [ -f $DATA/ips.out.tsv ] && \
-                        [ -f $DATA/eggnog.out.tsv ] && \
-                        [ -f $DATA/tax_rep_index.tsv ] && \
-                        [ -f $DATA/clus90_clusmem.tsv ] && \
+		# check install
+	        if [ -f $DATA/closest_tax.tsv ] && \
+	                [ -f $DATA/mgbc_rep_index_26640.tsv ] && \
+        	        [ -f $DATA/uhgg_rep_index_100456.tsv ] && \
+	      	        [ -f $DATA/ips.out.tsv ] && \
+	                [ -f $DATA/eggnog.out.tsv ] && \
+	                [ -f $DATA/tax_rep_index.tsv ] && \
+	                [ -f $DATA/clus90_clusmem.tsv ] && \
                         [ -f $DATA/clus100_clusmem.tsv ] && \
-                        [ -f $BLASTDBPATH/mmseqs_cluster_rep.fa.pal ]
-                then
-                        echo "$(timestamp) INFO : Data files installed correctly. Compiling toolkit."
-                else
-                        echo "$(timestamp) ERROR : Something went wrong with the install... Exiting."
-                        exit 1
-                fi
+			[ -f $BLASTDBPATH/mmseqs_cluster_rep.fa.pal ]
+	        then
+	                echo "$(timestamp) INFO : Data files installed correctly. Compiling toolkit."
+	        else
+	                echo "$(timestamp) ERROR : Something went wrong with extracting the databases... Please ensure gnu-tar has been installed. Exiting."
+	                exit 1
+	        fi
 
-                sed -i "s+__DB1PATH__+$DATA+g" $SRCPATH/var.src
-                sed -i "s+__DB2PATH__+$DATA+g" $SRCPATH/var.src
-                sed -i "s+__DB3PATH__+$DATA+g" $SRCPATH/var.src
-                sed -i "s+__BDBPATH__+$BLASTDBPATH+g" $SRCPATH/var.src
+	        sed -i "s+__DB1PATH__+$DATA+g" $SRCPATH/var.src
+	        sed -i "s+__DB2PATH__+$DATA+g" $SRCPATH/var.src
+		sed -i "s+__DB3PATH__+$DATA+g" $SRCPATH/var.src
+		sed -i "s+__BDBPATH__+$BLASTDBPATH+g" $SRCPATH/var.src
 
 	fi
 
 fi
 
-chmod -R a+x $BINPATH
+chmod -R +x $BINPATH
 chmod a+x $BINPATH/*.sh
 chmod a+x ./MGBC_Tk
 sed -i "s+___VARPATH___+$SRCPATH/var.src+g" ./MGBC_Tk
