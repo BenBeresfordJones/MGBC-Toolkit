@@ -202,7 +202,7 @@ Arguments:
 `-i` Path to sequence input file [REQUIRED]  
 `-t` Sequence type, either NUCL for nucleotide or PROT for protein [REQUIRED]  
 `-s` Sequence identity to use as threshold for filtering results [default: 50]  
-`-n` Number of threads [default: 1]
+`-n` Number of threads [default: 1]  
 `-o` Directory to write to [default: "."]  
 `-p` Prefix for output files [default: "<feature>.<database>"]  
 
