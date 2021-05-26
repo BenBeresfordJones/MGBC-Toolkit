@@ -56,6 +56,11 @@ Finally, add the `MGBC_Tk` repository to your `$PATH` variable in `~/.profile`.
 export PATH="/path/to/MGBC-Toolkit":$PATH
 ``` 
 
+The installation process changes access permissions for the Toolkit automatically. However, if any 'permission' errors are seen, please run the following from the MGBC-Toolkit directory.
+```
+chmod -R +x ./bin
+```
+
 ## Running the Toolkit ##
 
 The MGBC-Toolkit provides multiple modules for identifying the taxonomic locations of functions of interest between the gut microbiotas of humans and mice. In addition, the Toolkit provides pan-function comparisons between species, to identify the most closely functionally related to species of interest in each host.
