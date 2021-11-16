@@ -1,6 +1,8 @@
 ![logo](https://github.com/BenBeresfordJones/MGBC/blob/main/MGBC_logo.png?raw=true)
 
-MGBC-Toolkit   [![DOI](https://zenodo.org/badge/370188822.svg)](https://zenodo.org/badge/latestdoi/370188822)
+[![DOI](https://zenodo.org/badge/370188822.svg)](https://zenodo.org/badge/latestdoi/370188822)
+
+MGBC-Toolkit
 ============
 
 
