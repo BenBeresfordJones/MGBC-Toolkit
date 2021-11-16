@@ -1,11 +1,10 @@
 ![logo](https://github.com/BenBeresfordJones/MGBC/blob/main/MGBC_logo.png?raw=true)
 
+[![DOI](https://zenodo.org/badge/370188822.svg)](https://zenodo.org/badge/latestdoi/370188822)
 MGBC-Toolkit
 ============
 
 This repository contains the wrapper scripts for accessing the taxonomic locations of functions between the human and mouse gut microbiotas using the [Mouse Gastrointestinal Bacteria Catalogue (MGBC)](https://github.com/BenBeresfordJones/MGBC).
-
-[![DOI](https://zenodo.org/badge/370188822.svg)](https://zenodo.org/badge/latestdoi/370188822)
 
 ## Contents ##
 * [Prerequisites](#Prerequisites)
