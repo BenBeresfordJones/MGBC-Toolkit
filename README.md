@@ -208,7 +208,7 @@ __Usage:__
 MGBC_Tk hm_blast -i <PATH/TO/SEQ> -t <SEQTYPE> -s <SEQID> -o <OUTDIR> -p <PREFIX>
 ``` 
 Arguments:  
-`-i` Path to sequence input file [REQUIRED]  
+`-i` Path to sequence input file, containing a single sequence to analyse [REQUIRED]  
 `-t` Sequence type, either NUCL for nucleotide or PROT for protein [REQUIRED]  
 `-s` Sequence identity to use as threshold for filtering results [default: 50]  
 `-n` Number of threads [default: 1]  
